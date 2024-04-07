@@ -1,12 +1,14 @@
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class Invoice {
     Integer invoiceNumber;
     String customerName;
      String phoneNumber;
-     LocalDate invoiceDate;// to add the curante date
+     Date invoiceDate;
+     //LocalDate invoiceDate;// to add the curante date
      List<Item> items;
      double totalAmount;
     double paidAmount;
@@ -14,8 +16,18 @@ public class Invoice {
 
 
 
-    public Invoice(Integer invoiceNumber, String customerName, String phoneNumber, LocalDate invoiceDate, List<Item> items, double totalAmount, double paidAmount, double balance) {
+   /* public Invoice(Integer invoiceNumber, String customerName, String phoneNumber, LocalDate invoiceDate, List<Item> items, double totalAmount, double paidAmount, double balance) {
         this.invoiceNumber = invoiceNumber;
+        this.customerName = customerName;
+        this.phoneNumber = phoneNumber;
+        this.invoiceDate = invoiceDate;
+        this.items = items;
+        this.totalAmount = totalAmount;
+        this.paidAmount = paidAmount;
+        this.balance = balance;
+    }*/
+
+    public Invoice(String customerName, String phoneNumber, Date invoiceDate, List<Item> items, double totalAmount, double paidAmount, double balance) {
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
         this.invoiceDate = invoiceDate;
@@ -50,11 +62,11 @@ public class Invoice {
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalDate getInvoiceDate() {
+    public Date getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(LocalDate invoiceDate) {
+    public void setInvoiceDate(Date invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 
