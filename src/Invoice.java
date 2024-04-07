@@ -115,7 +115,7 @@ public class Invoice {
         }
     }
 
-    // method to mark Invoice paid 
+    // method to mark Invoice paid
     public void markInvoicePaid() {
         if (this.balance == 0.0) {
             System.out.println("Invoice already paid.");
