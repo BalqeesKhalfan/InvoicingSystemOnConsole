@@ -143,4 +143,13 @@ public class Invoice {
             System.out.println("Invoice marked as paid.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "customerName='" + customerName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", invoiceDate='" + invoiceDate + '\'' +
+                '}';
+    }
 }

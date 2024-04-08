@@ -6,11 +6,11 @@ public class Item {
      double unitPrice;
     Integer quantity;
 
-    public Item(Integer itemId, String itemName, double unitPrice, Integer quantity) {
+    public Item(Integer itemId, String itemName, double unitPrice) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.unitPrice = unitPrice;
-        this.quantity = quantity;
+
     }
 
     public Integer getItemId() {
