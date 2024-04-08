@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Item {
     Integer itemId;
      String itemName;
@@ -45,7 +47,28 @@ public class Item {
 
     // method to calculate the amount 
     public double calculateAmount() {
+
         return unitPrice* quantity;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Double.compare(unitPrice, item.unitPrice) == 0 && Objects.equals(itemName, item.itemName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemName, unitPrice);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemName='" + itemName + '\'' +
+                ", unitPrice=" + unitPrice +
+                '}';
+    }
 }

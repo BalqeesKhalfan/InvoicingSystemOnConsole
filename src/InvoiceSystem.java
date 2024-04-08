@@ -18,17 +18,13 @@ public class InvoiceSystem {
             choice = scanner.nextInt();
             switch (choice){
                 case 1:
-                    Menu.showShopSettingsMenu();
-                    System.out.print("Enter your choice: ");
-                    choice = scanner.nextInt();
+
                     break;
                 case 2:
-                    Menu.showManageShopItemsMenu();
-                    System.out.print("Enter your choice: ");
-                    choice = scanner.nextInt();
+                   // handleShopSettings();
                     break;
                 case 3:
-                    createNewInvoice();
+                   // createNewInvoice();
                     break;
                 case 4:
                     // Implement reporting statistics
@@ -53,6 +49,59 @@ public class InvoiceSystem {
         }
 
     }
+
+    //method of handling Shop settings
+    private static void handleShopSettings() {
+        boolean exitSettings = false;
+        while (!exitSettings) {
+            Menu.showShopSettingsMenu();
+            int choice = getUserChoice();
+            switch (choice) {
+                case 1:
+                    //loadData();
+                    break;
+                case 2:
+                   // setShopName();
+                    break;
+                case 3:
+                  //  setInvoiceHeader();
+                    break;
+                case 4:
+                    exitSettings = true;
+                    break;
+                default:
+                    //System.out.println("Invalid choice. Please try again.");
+                    Menu.showMainMenu();
+            }
+        }
+    }
+    // loading data
+    /* private static void loadData() {
+        loadItems("items.txt");
+        loadInvoices("invoices.txt");
+        System.out.println("Data loaded successfully.");
+    }*/
+    // load Items
+   /* private static void loadItems(String filename) {
+        try {
+            File file = new File(filename);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                int itemId = Integer.parseInt(parts[0]);
+                String itemName = parts[1];
+                double unitPrice = Double.parseDouble(parts[2]);
+                int quantity = Integer.parseInt(parts[3]);
+                Item item = new Item(itemId, itemName, unitPrice, quantity);
+                items.add(item);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filename);
+            e.printStackTrace();
+        }
+    }*/
    /** public static void createNewInvoice(){
         System.out.println("Creating New Invoice:");
         System.out.println("Enter customer name: ");
@@ -170,8 +219,8 @@ public class InvoiceSystem {
        double balance = totalAmount - paidAmount;
 
        // Create and add the new invoice
-       Invoice newInvoice = new Invoice(customerFullName, phoneNumber, new Date(), selectedItems, totalAmount, paidAmount, balance);
-       invoices.add(newInvoice);
+    //   Invoice newInvoice = new Invoice(customerFullName, phoneNumber, , selectedItems, totalAmount, paidAmount, balance);
+      // invoices.add(newInvoice);
 
        System.out.println("New invoice created successfully.");
    }

@@ -1,44 +1,36 @@
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Invoice {
+    private static int nextInvoiceNumber = 1;
     Integer invoiceNumber;
     String customerName;
      String phoneNumber;
-     Date invoiceDate;
+     String invoiceDate;
      //LocalDate invoiceDate;// to add the curante date
      List<Item> items;
+    private List<Integer> quantities;
      double totalAmount;
     double paidAmount;
      double balance;
-
-
-
-   /* public Invoice(Integer invoiceNumber, String customerName, String phoneNumber, LocalDate invoiceDate, List<Item> items, double totalAmount, double paidAmount, double balance) {
-        this.invoiceNumber = invoiceNumber;
+    public Invoice(String customerName, String phoneNumber, String invoiceDate) {
+        this.invoiceNumber = nextInvoiceNumber++;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
         this.invoiceDate = invoiceDate;
-        this.items = items;
-        this.totalAmount = totalAmount;
-        this.paidAmount = paidAmount;
-        this.balance = balance;
-    }*/
-
-    public Invoice(String customerName, String phoneNumber, Date invoiceDate, List<Item> items, double totalAmount, double paidAmount, double balance) {
-        this.customerName = customerName;
-        this.phoneNumber = phoneNumber;
-        this.invoiceDate = invoiceDate;
-        this.items = items;
-        this.totalAmount = totalAmount;
-        this.paidAmount = paidAmount;
-        this.balance = balance;
+        this.items = new ArrayList<>();
+        this.quantities = new ArrayList<>();
+        this.totalAmount = 0.0;
+        this.paidAmount = 0.0;
+        this.balance = 0.0;
     }
+    //Getter and Setter
+
 
     public Integer getInvoiceNumber() {
-
         return invoiceNumber;
     }
 
@@ -62,11 +54,11 @@ public class Invoice {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getInvoiceDate() {
+    public String getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
+    public void setInvoiceDate(String invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 
@@ -101,14 +93,28 @@ public class Invoice {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+    public int getQuantityOfAnItem(Item item) {
+        int index = items.indexOf(item);
+        if (index != -1) {
+            return quantities.get(index);
+        }
+        return 0;
+    }
 
+    public double getItemAmount(Item item) {
+        int index = items.indexOf(item);
+        if (index != -1) {
+            return item.getUnitPrice() * quantities.get(index);
+        }
+        return 0;
+    }
     // method to add new Item
     public void addItem(Item item, Integer quantity) {
         items.add(item);
-        quantity += quantity;
-        this.totalAmount += item.calculateAmount() * quantity;
-        this.balance = this.totalAmount - this.paidAmount;
+        quantities.add(quantity);
+        totalAmount +=item.getUnitPrice() *quantity;
     }
+
     // method to calculate total mount
     public double calculateTotalAmount() {
         double total = 0.0;
