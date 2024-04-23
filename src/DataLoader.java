@@ -32,7 +32,7 @@ public class DataLoader {
     ///
     public static List<Invoice> loadInvoicesFromConsole(Scanner scanner) {
         List<Invoice> invoices = new ArrayList<>();
-        System.out.println("Enter invoice details (customerName, phoneNumber, invoiceDate), type 'done' to finish:");
+        System.out.println("Enter invoice details (invoiceNumber,customerName, phoneNumber, invoiceDate), type 'done' to finish:");
         while (true) {
             try {
                 String line = scanner.nextLine().trim();
@@ -40,14 +40,15 @@ public class DataLoader {
                     break;
                 }
                 String[] parts = line.split(",");
-                if (parts.length != 3) {
-                    System.out.println("Invalid input. Please enter customerName, phoneNumber, invoiceDate separated by commas.");
+                if (parts.length !=4) {
+                    System.out.println("Invalid input. Please enter invoiceNumber,customerName, phoneNumber, invoiceDate separated by commas.");
                     continue;
                 }
-                String customerName = parts[0];
-                String phoneNumber = parts[1];
-                String invoiceDate = parts[2];
-                Invoice invoice = new Invoice(customerName, phoneNumber, invoiceDate);
+                Integer invoiceNumber= Integer.valueOf(parts[0]);
+                String customerName = parts[1];
+                String phoneNumber = parts[2];
+                String invoiceDate = parts[3];
+                Invoice invoice = new Invoice(invoiceNumber,customerName, phoneNumber, invoiceDate);
                 invoices.add(invoice);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input format. Please enter valid values for customerName, phoneNumber, invoiceDate.");

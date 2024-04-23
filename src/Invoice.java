@@ -17,7 +17,7 @@ public class Invoice {
      double totalAmount;
     double paidAmount;
      double balance;
-    public Invoice(String customerName, String phoneNumber, String invoiceDate) {
+    public Invoice(Integer invoiceNumber,String customerName, String phoneNumber, String invoiceDate) {
         this.invoiceNumber = nextInvoiceNumber++;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
@@ -160,6 +160,10 @@ public class Invoice {
         System.out.println("Create New Invoice Menu:");
 
         // Collect invoice information
+        System.out.print("Enter Invoice Number : ");
+        scanner.nextLine(); // Clear the input buffer
+        Integer invoiceNumber= scanner.nextInt();
+
         System.out.print("Enter customer full name: ");
         scanner.nextLine(); // Clear the input buffer
         String customerName = scanner.nextLine();
@@ -169,7 +173,7 @@ public class Invoice {
         String invoiceDate = scanner.nextLine();
 
         // Create new invoice object
-        Invoice newInvoice = new Invoice(customerName, phoneNumber, invoiceDate);
+        Invoice newInvoice = new Invoice(invoiceNumber,customerName, phoneNumber, invoiceDate);
 
         // Add items to the invoice
         while (true) {
@@ -236,7 +240,7 @@ public class Invoice {
 
 
     // Method to generate a report of all invoices
-    public static void reportAllInvoices(Shop shop) {
+   /** public static void reportAllInvoices(Shop shop) {
         System.out.println("Report: All Invoices Menu:");
         List<Invoice> allInvoices = shop.getInvoices();
         if (allInvoices.isEmpty()) {
@@ -251,10 +255,37 @@ public class Invoice {
 
 
 
+    }**/
+
+    public static void reportAllInvoices(Shop shop) {
+        System.out.println("Report: All Invoices Menu:");
+        List<Invoice> allInvoices = shop.getAllInvoices();
+        if (allInvoices.isEmpty()) {
+            System.out.println("No invoices found.");
+        } else {
+            System.out.printf("%-15s %-15s %-15s %-15s %-15s\n", "Invoice No", "Invoice Date", "Customer Name", "Total Amount", "Paid Amount");
+            for (Invoice invoice : allInvoices) {
+                System.out.printf("%-15d %-15s %-15s $%-14.2f $%-14.2f\n", invoice.getInvoiceNumber(), invoice.getInvoiceDate(), invoice.getCustomerName(), invoice.getTotalAmount(), invoice.getPaidAmount());
+            }
+        }
     }
 
+    public static void reportAllInvoice(Shop shop) {
+        System.out.println("Report: All Invoices Menu:");
+        List<Invoice> allInvoices = shop.getInvoices();
+        if (allInvoices.isEmpty()) {
+            System.out.println("No invoices found.");
+        } else {
+            // Print list of invoices
+            for (Invoice invoice : allInvoices) {
+                System.out.println(invoice);
+            }
+        }
+    }
+
+
     // search Invoice Menu
-    public static void searchInvoicesMenu(Shop shop, Scanner scanner) {
+    /**public static void searchInvoicesMenu(Shop shop, Scanner scanner) {
         System.out.println("Search Invoices Menu:");
         System.out.print("Enter Invoice Number: ");
         int searchInvoiceNumber = scanner.nextInt();
@@ -287,6 +318,23 @@ public class Invoice {
         if (!found) {
             System.out.println("Invoice with number " + searchInvoiceNumber + " not found.");
         }
+    }**/
+    public static void searchInvoicesMenu(Shop shop, Scanner scanner) {
+        System.out.println("Search Invoices Menu:");
+        System.out.print("Enter Invoice Number: ");
+        int searchInvoiceNumber = scanner.nextInt();
+
+        // Search for the invoice
+        Invoice foundInvoice = shop.findInvoiceByNumber(searchInvoiceNumber);
+
+        if (foundInvoice != null) {
+            // If invoice is found, display its details
+            System.out.println("Invoice Details:");
+            System.out.println(foundInvoice);
+        } else {
+            System.out.println("Invoice with number " + searchInvoiceNumber + " not found.");
+        }
     }
+
 
 }
