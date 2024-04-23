@@ -63,23 +63,7 @@ public class Shop {
 
 
     //load Data
-  /**
-   * public  void loadShopData(Scanner scanner, Shop shop) {
-   * List<Item> items = DataLoader.loadItemsFromConsole(scanner);
-   * List<Invoice> invoices = DataLoader.loadInvoicesFromConsole(scanner);
-   * System.out.println("Data Loaded :");
-   * System.out.println("Loaded Items:");
-   * for (Item item : items) {
-   * System.out.println(item);
-   * }
-   * System.out.println("Loaded Invoices:");
-   * for (Invoice invoice : invoices) {
-   * System.out.println(invoice);
-   * }
-   * }
-   *
-   * @return
-   **/
+
     // Method to load default data or allow user to enter data
     public List<String> loadData(Scanner scanner) {
         System.out.println("Do you want to load default data? (yes/no): ");
@@ -131,27 +115,7 @@ public class Shop {
         System.out.println("Invoice header information set successfully.");
     }
     // Method to load default data
-    /**public void loadDefaultData() {
-        // Add some default items
-        Item item1 = new Item(1, "Apple", 1.5);
-        Item item2 = new Item(2, "Banana", 0.75);
-        Item item3 = new Item(3, "Orange", 1.0);
 
-        items.add(item1);
-        items.add(item2);
-        items.add(item3);
-
-        // Add some default invoices
-        Invoice invoice1 = new Invoice(1, "John Doe", "1234567890", "2024-04-20");
-        invoice1.addItem(item1, 3); // Adding 3 Apples
-        invoice1.addItem(item2, 2); // Adding 2 Bananas
-
-        Invoice invoice2 = new Invoice(2, "Jane Smith", "0987654321", "2024-04-21");
-        invoice2.addItem(item3, 4); // Adding 4 Oranges
-
-        invoices.add(invoice1);
-        invoices.add(invoice2);
-    }**/
     public List<String> loadDefaultData() {
         List<String> defaultData = new ArrayList<>();
 

@@ -240,22 +240,7 @@ public class Invoice {
 
 
     // Method to generate a report of all invoices
-   /** public static void reportAllInvoices(Shop shop) {
-        System.out.println("Report: All Invoices Menu:");
-        List<Invoice> allInvoices = shop.getInvoices();
-        if (allInvoices.isEmpty()) {
-            System.out.println("No invoices found.");
-        } else {
-            System.out.printf("%-15s %-15s %-15s %-15s %-15s\n", "Invoice No", "Invoice Date", "Customer Name", "No of Items", "Total");
-            for (int i = 0; i < allInvoices.size(); i++) {
-                Invoice invoice = allInvoices.get(i);
-                System.out.printf("%-15d %-15s %-15s %-15d $%.2f\n", i + 1, invoice.getInvoiceDate(), invoice.getCustomerName(), invoice.getItems().size(), invoice.getTotalAmount());
-            }
-        }
 
-
-
-    }**/
 
     public static void reportAllInvoices(Shop shop) {
         System.out.println("Report: All Invoices Menu:");
@@ -270,55 +255,9 @@ public class Invoice {
         }
     }
 
-    public static void reportAllInvoice(Shop shop) {
-        System.out.println("Report: All Invoices Menu:");
-        List<Invoice> allInvoices = shop.getInvoices();
-        if (allInvoices.isEmpty()) {
-            System.out.println("No invoices found.");
-        } else {
-            // Print list of invoices
-            for (Invoice invoice : allInvoices) {
-                System.out.println(invoice);
-            }
-        }
-    }
-
 
     // search Invoice Menu
-    /**public static void searchInvoicesMenu(Shop shop, Scanner scanner) {
-        System.out.println("Search Invoices Menu:");
-        System.out.print("Enter Invoice Number: ");
-        int searchInvoiceNumber = scanner.nextInt();
-        boolean found = false;
 
-        for (Invoice invoice : shop.getInvoices()) {
-            if (invoice.getInvoiceNumber() == searchInvoiceNumber) {
-                found = true;
-                System.out.println("Invoice Details:");
-                System.out.println("Invoice Number: " + invoice.getInvoiceNumber());
-                System.out.println("Invoice Date: " + invoice.getInvoiceDate());
-                System.out.println("Customer Name: " + invoice.getCustomerName());
-                System.out.println("Phone Number: " + invoice.getPhoneNumber());
-                System.out.println("Total Amount: " + invoice.getTotalAmount());
-                System.out.println("Paid Amount: " + invoice.getPaidAmount());
-                System.out.println("Balance: " + invoice.getBalance());
-
-                System.out.println("Items:");
-                for (Item item : invoice.getItems()) {
-                    System.out.println("Item ID: " + item.getItemId());
-                    System.out.println("Item Name: " + item.getItemName());
-                    System.out.println("Unit Price: " + item.getUnitPrice());
-                    System.out.println("Quantity: " + invoice.getQuantityOfAnItem(item));
-                    System.out.println("Item Amount: " + invoice.getItemAmount(item));
-                }
-                break;
-            }
-        }
-
-        if (!found) {
-            System.out.println("Invoice with number " + searchInvoiceNumber + " not found.");
-        }
-    }**/
     public static void searchInvoicesMenu(Shop shop, Scanner scanner) {
         System.out.println("Search Invoices Menu:");
         System.out.print("Enter Invoice Number: ");
