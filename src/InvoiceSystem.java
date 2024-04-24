@@ -3,26 +3,29 @@ import java.util.*;
 public class InvoiceSystem {
 
     //FIXME: Two of these are never used
-    private static List<Item> items = new ArrayList<>(); // List to store all items
-    private static List<Invoice> invoices = new ArrayList<>(); // List to store all invoices
+
     private static Map<Integer, Integer> menuSelections = new HashMap<>();
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Shop shop = new Shop("My Grocery Shop"); //Make appropriate name
+        Shop shop = new Shop("Artificial Intelligence Center for selling technical devices");
+        // use boolean to check if the program is running or not
+        boolean isRunning = true; // Set the initial value to true
 
-        while (true) { // use a boolean variable instead of this
+        while (isRunning) { // Use the boolean variable as the loop condition
             try {
                 Menu.showMainMenu();
                 System.out.print("Enter your choice: ");
                 int choice = scanner.nextInt();
                 menuSelections.put(choice, menuSelections.getOrDefault(choice, 0) + 1);
                 processMainMenu(choice, scanner, shop);
-            } catch (Exception e) {
+            } catch (InputMismatchException e) { // Catch InputMismatchException specifically
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine();
+                scanner.nextLine(); // Consume the invalid input
+            } catch (Exception e) { // Catch other exceptions
+                System.out.println("An error occurred: " + e.getMessage());
+                isRunning = false; // Set isRunning  false to exit the loop
             }
-
         }
 
     }

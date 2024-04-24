@@ -3,9 +3,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
-
-    //for all of these menu you can just declare single static string object and print them in one function instead of repeating the function
-    Shop shop = new Shop("My Grocery Shop");
     // Method to show Main Menu
     public static void showMainMenu() {
         System.out.println("Main Menu:");
@@ -34,20 +31,14 @@ public class Menu {
         System.out.println("5- Go Back");
     }
 
-    //exit program method
-
-
-
     //Shop setings process menu
     static void processShopSettingsMenu(Scanner scanner, Shop shop) {
         Menu.showShopSettingsMenu();
         System.out.print("Enter your choice: ");
         int settingChoice = scanner.nextInt();
-
-        scanner.nextLine(); //explain the purpose of this in comments
+        scanner.nextLine(); // Consume the newline character after reading the integer
         switch (settingChoice) {
             case 1:
-                //remove all extra spaces
                 System.out.println(shop.loadData(scanner));
                 break;
             case 2:

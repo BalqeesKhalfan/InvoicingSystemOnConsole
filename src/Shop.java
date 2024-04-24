@@ -34,13 +34,15 @@ public class Shop {
   public void addItem(Item item) {
       items.add(item);
   }
-   //
     public List<Item> getItems() {
         return items;
     }
     //delete an Item
+    // Remove an item from the 'items' list based on the given itemId
     public void deleteItem(int itemId) {
-        items.removeIf(item -> item.getItemId() == itemId); // can you explain this line?
+        // Use the removeIf method to remove items based on a condition
+        items.removeIf(item -> item.getItemId() == itemId);
+        //  This line of code will  remove items that satisfy the condition specified in the lambda expression
     }
     // update Item Price
     public void changeItemPrice(int itemId, double newPrice) {
@@ -65,33 +67,29 @@ public class Shop {
     //load Data
 
     // Method to load default data or allow user to enter data
-    public List<String> loadData(Scanner scanner) {
+    public  List<String> loadData(Scanner scanner) {
+        List<String> loadedData = new ArrayList<>(); // Create a new list to store loaded data
         System.out.println("Do you want to load default data? (yes/no): ");
         String choice = scanner.nextLine().toLowerCase();
         //scanner.nextLine();
 
         if (choice.equals("yes")) {
-           return loadDefaultData();
+            loadedData.addAll(loadDefaultData());// Load default data and add it to the list
         } else if (choice.equals("no")) {
             // Prompt user to enter their own data
             System.out.println("Enter your own data:");
-
             // Load items
-
             List<Item> enteredItems = DataLoader.loadItemsFromConsole(scanner);
-
             // Load invoices
-
             List<Invoice> enteredInvoices = DataLoader.loadInvoicesFromConsole(scanner);
-
             // Add entered data to shop
-            items.addAll(enteredItems);
-            invoices.addAll(enteredInvoices);
+            items.addAll(enteredItems);// Add entered items to the list of shop items
+            invoices.addAll(enteredInvoices); // Add entered invoices to the list of shop invoices
         } else {
             System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
+
         }
-        return null; // why is null being returned? Null should never be returned
-        //if there is nothing to return you can simply make return type as void
+        return loadedData;
     }
     // set shop Name
     public static void setShopName(Scanner scanner, Shop shop) {
@@ -176,40 +174,36 @@ public class Shop {
     // create new invoice
     public static void createNewInvoiceMenu(Shop shop, Scanner scanner) {
         System.out.println("Create New Invoice Menu:");
-
         // Collect invoice information
         System.out.print("Enter Invoice Number: ");
         int invoiceNumber = scanner.nextInt();
         scanner.nextLine(); // Consume newline character
-
         System.out.print("Enter customer full name: ");
         String customerName = scanner.nextLine();
-
         System.out.print("Enter phone number: ");
         String phoneNumber = scanner.nextLine();
-
         System.out.print("Enter invoice date: ");
         String invoiceDate = scanner.nextLine();
-
         // Create new invoice object
         Invoice newInvoice = new Invoice(invoiceNumber, customerName, phoneNumber, invoiceDate);
-
         // Add items to the invoice
-        while (true) { //Use boolean variable
-            System.out.print("Enter item ID (or -1 to finish adding items): ");
+        boolean addingItems = true;
+        while (addingItems) { //Use boolean variable
+            System.out.print("Enter item ID (or any negative value to finish adding items): ");
             int itemId = scanner.nextInt();
-            if (itemId == -1) { // what about -2,-3,-4,.....
+            if (itemId < 0) { // Check if the input is negative to finish adding items
+                addingItems = false; // Set the boolean variable false to exit the loop
                 break;
             }
-
             // Search for item by ID and add to the invoice
+
             boolean found = false;
             for (Item item : shop.getItems()) {
-                if (item.getItemId() == itemId) {
+                if (item.getItemId() == itemId) { // Check if the item ID matches
                     found = true;
                     System.out.print("Enter quantity for item " + item.getItemName() + ": ");
                     int quantity = scanner.nextInt();
-                    newInvoice.addItem(item, quantity);
+                    newInvoice.addItem(item, quantity); // Add the item to the invoice with the specified quantity
                     break;
                 }
             }
