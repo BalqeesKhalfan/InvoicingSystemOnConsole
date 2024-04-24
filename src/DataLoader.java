@@ -6,17 +6,19 @@ public class DataLoader {
     public static List<Item> loadItemsFromConsole(Scanner scanner) {
         List<Item> items = new ArrayList<>();
         System.out.println("Enter item details (itemId, itemName, unitPrice), type 'done' to finish:");
-        while (true) {
+        while (true) { //use boolean variable
             String line = scanner.nextLine().trim();
             if (line.equalsIgnoreCase("done")) {
                 break;
             }
-            String[] parts = line.split(",");
+            String[] parts = line.split(","); //how will the user know of input format
             if (parts.length != 3) {
                 System.out.println("Invalid input. Please enter itemId, itemName, unitPrice separated by commas.");
                 continue;
             }
             try {
+
+                // It is far better to use simpler logic, Your current logic is prone to erros
                 int itemId = Integer.parseInt(parts[0]);
                 String itemName = parts[1];
                 double unitPrice = Double.parseDouble(parts[2]);
@@ -31,6 +33,8 @@ public class DataLoader {
 
     ///
     public static List<Invoice> loadInvoicesFromConsole(Scanner scanner) {
+
+        //same comments for this one as loadItemsFromConsole function
         List<Invoice> invoices = new ArrayList<>();
         System.out.println("Enter invoice details (invoiceNumber,customerName, phoneNumber, invoiceDate), type 'done' to finish:");
         while (true) {

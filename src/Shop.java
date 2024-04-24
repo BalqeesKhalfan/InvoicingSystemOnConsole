@@ -40,7 +40,7 @@ public class Shop {
     }
     //delete an Item
     public void deleteItem(int itemId) {
-        items.removeIf(item -> item.getItemId() == itemId);
+        items.removeIf(item -> item.getItemId() == itemId); // can you explain this line?
     }
     // update Item Price
     public void changeItemPrice(int itemId, double newPrice) {
@@ -90,7 +90,8 @@ public class Shop {
         } else {
             System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
         }
-        return null;
+        return null; // why is null being returned? Null should never be returned
+        //if there is nothing to return you can simply make return type as void
     }
     // set shop Name
     public static void setShopName(Scanner scanner, Shop shop) {
@@ -194,10 +195,10 @@ public class Shop {
         Invoice newInvoice = new Invoice(invoiceNumber, customerName, phoneNumber, invoiceDate);
 
         // Add items to the invoice
-        while (true) {
+        while (true) { //Use boolean variable
             System.out.print("Enter item ID (or -1 to finish adding items): ");
             int itemId = scanner.nextInt();
-            if (itemId == -1) {
+            if (itemId == -1) { // what about -2,-3,-4,.....
                 break;
             }
 

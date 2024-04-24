@@ -1,15 +1,17 @@
 import java.util.*;
 
 public class InvoiceSystem {
+
+    //FIXME: Two of these are never used
     private static List<Item> items = new ArrayList<>(); // List to store all items
     private static List<Invoice> invoices = new ArrayList<>(); // List to store all invoices
     private static Map<Integer, Integer> menuSelections = new HashMap<>();
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Shop shop = new Shop("My Grocery Shop");
+        Shop shop = new Shop("My Grocery Shop"); //Make appropriate name
 
-        while (true) {
+        while (true) { // use a boolean variable instead of this
             try {
                 Menu.showMainMenu();
                 System.out.print("Enter your choice: ");
