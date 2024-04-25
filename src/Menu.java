@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
@@ -23,6 +21,7 @@ public class Menu {
         System.out.println("4- Go Back");
 
     }
+
     public  static  void showManageShopItemsMenu(){
         System.out.println("1- Add Items ");
         System.out.println("2-Delete Items ");

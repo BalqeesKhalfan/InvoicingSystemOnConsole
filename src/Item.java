@@ -84,6 +84,7 @@ public class Item {
         shop.addItem(newItem);
         System.out.println("Item added successfully.");
     }
+
     // delete Item
     static void deleteItem(Scanner scanner, Shop shop) {
         System.out.print("Enter Item ID to delete: ");
