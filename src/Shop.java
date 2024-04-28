@@ -93,25 +93,60 @@ public class Shop {
     }
     // set shop Name
     public static void setShopName(Scanner scanner, Shop shop) {
-        System.out.print("Enter new shop name: ");
-        scanner.nextLine(); // Clear the input buffer
-        String newShopName = scanner.nextLine();
-        shop.setShopName(newShopName);
-        System.out.println("Shop name : " + newShopName);
+        boolean isValidName = false; // boolean to check  if the entered name is valid
+
+        while (!isValidName) {
+            System.out.print("Enter new shop name: ");
+            String newShopName = scanner.nextLine().trim(); // Trim leading and trailing whitespace
+
+            // Check if the entered name contains only letters and is not empty
+            if (newShopName.matches("[a-zA-Z]+")) {
+                shop.setShopName(newShopName);
+                System.out.println("Shop name : " + newShopName);
+                isValidName = true; // Set the flag to true to exit the loop
+            } else {
+                System.out.println("Invalid shop name. Please enter a name containing only letters.");
+            }
+        }
     }
     //Set invoice header
     static void setInvoiceHeader(Scanner scanner, Shop shop) {
         System.out.println("Enter Invoice Header Information:");
-        System.out.print("Telephone: ");
-        String tel = scanner.next();
+        String tel = "";
+        String email = "";
+        while (!isValidPhoneNumber(tel)) {
+            System.out.print("Telephone: ");
+            tel = scanner.next();
+            if (!isValidPhoneNumber(tel)) {
+                System.out.println("Invalid telephone number format. Please enter a valid phone number starting with 9 or 7 and containing 8 digits.");
+            }
+        }
+        while (!isValidEmail(email)){
+            System.out.print("Email: ");
+            email = scanner.next();
+            if (!isValidEmail(email)) {
+                System.out.println("Invalid email format. Please enter a valid email address containing '@gmail.com'.");
+            }
+        }
         System.out.print("Fax: ");
         String fax = scanner.next();
-        System.out.print("Email: ");
-        String email = scanner.next();
         System.out.print("Website: ");
         String website = scanner.next();
         shop.setInvoiceHeader(tel, fax, email, website);
         System.out.println("Invoice header information set successfully.");
+
+    }
+
+
+    private static boolean isValidPhoneNumber(String phoneNumber) {
+        // Check if the phone number starts with 9 or 7 and has a length of 8 digits
+        return phoneNumber.matches("[79]\\d{7}");
+    }
+
+    // Helper method to validate email format
+    private static boolean isValidEmail(String email) {
+        // Check if the email contains '@gmail.com'
+        return email.endsWith("@gmail.com");
     }
     // Method to load default data
 
@@ -172,38 +207,84 @@ public class Shop {
         }
     }
     // create new invoice
+//    public static void createNewInvoiceMenu(Shop shop, Scanner scanner) {
+//        System.out.println("Create New Invoice Menu:");
+//        // Collect invoice information
+//        System.out.print("Enter Invoice Number: ");
+//        int invoiceNumber = scanner.nextInt();
+//        scanner.nextLine(); // Consume newline character
+//        System.out.print("Enter customer full name: ");
+//        String customerName = scanner.nextLine();
+//        System.out.print("Enter phone number: ");
+//        String phoneNumber = scanner.nextLine();
+//        System.out.print("Enter invoice date: ");
+//        String invoiceDate = scanner.nextLine();
+//        // Create new invoice object
+//        Invoice newInvoice = new Invoice(invoiceNumber, customerName, phoneNumber, invoiceDate);
+//        // Add items to the invoice
+//        boolean addingItems = true;
+//        while (addingItems) { //Use boolean variable
+//            System.out.print("Enter item ID (or any negative value to finish adding items): ");
+//            int itemId = scanner.nextInt();
+//            if (itemId < 0) { // Check if the input is negative to finish adding items
+//                addingItems = false; // Set the boolean variable false to exit the loop
+//                break;
+//            }
+//            // Search for item by ID and add to the invoice
+//
+//            boolean found = false;
+//            for (Item item : shop.getItems()) {
+//                if (item.getItemId() == itemId) { // Check if the item ID matches
+//                    found = true;
+//                    System.out.print("Enter quantity for item " + item.getItemName() + ": ");
+//                    int quantity = scanner.nextInt();
+//                    newInvoice.addItem(item, quantity); // Add the item to the invoice with the specified quantity
+//                    break;
+//                }
+//            }
+//            if (!found) {
+//                System.out.println("Item with ID " + itemId + " not found.");
+//            }
+//        }
+//
+//        // Add the newly created invoice to the shop
+//        shop.addInvoice(newInvoice);
+//
+//        // Inform the user that the invoice was created successfully
+//        System.out.println("Invoice created successfully.");
+//    }
+
     public static void createNewInvoiceMenu(Shop shop, Scanner scanner) {
         System.out.println("Create New Invoice Menu:");
+
         // Collect invoice information
-        System.out.print("Enter Invoice Number: ");
-        int invoiceNumber = scanner.nextInt();
+        int invoiceNumber = getValidInvoiceNumber(scanner);
         scanner.nextLine(); // Consume newline character
-        System.out.print("Enter customer full name: ");
-        String customerName = scanner.nextLine();
-        System.out.print("Enter phone number: ");
-        String phoneNumber = scanner.nextLine();
-        System.out.print("Enter invoice date: ");
-        String invoiceDate = scanner.nextLine();
+        String customerName = getValidCustomerName(scanner);
+        String phoneNumber = getValidPhoneNumber(scanner);
+        String invoiceDate = getValidInvoiceDate(scanner);
+
         // Create new invoice object
         Invoice newInvoice = new Invoice(invoiceNumber, customerName, phoneNumber, invoiceDate);
+
         // Add items to the invoice
         boolean addingItems = true;
-        while (addingItems) { //Use boolean variable
+        while (addingItems) {
             System.out.print("Enter item ID (or any negative value to finish adding items): ");
             int itemId = scanner.nextInt();
-            if (itemId < 0) { // Check if the input is negative to finish adding items
-                addingItems = false; // Set the boolean variable false to exit the loop
+            if (itemId < 0) {
+                addingItems = false;
                 break;
             }
-            // Search for item by ID and add to the invoice
 
+            // Search for item by ID and add to the invoice
             boolean found = false;
             for (Item item : shop.getItems()) {
-                if (item.getItemId() == itemId) { // Check if the item ID matches
+                if (item.getItemId() == itemId) {
                     found = true;
                     System.out.print("Enter quantity for item " + item.getItemName() + ": ");
                     int quantity = scanner.nextInt();
-                    newInvoice.addItem(item, quantity); // Add the item to the invoice with the specified quantity
+                    newInvoice.addItem(item, quantity);
                     break;
                 }
             }
@@ -218,7 +299,69 @@ public class Shop {
         // Inform the user that the invoice was created successfully
         System.out.println("Invoice created successfully.");
     }
- //return all invoices
+    // Validation methods
+    private static int getValidInvoiceNumber(Scanner scanner) {
+        int invoiceNumber;
+        while (true) {
+            System.out.print("Enter Invoice Number: ");
+            try {
+                invoiceNumber = scanner.nextInt();
+                if (invoiceNumber < 0) {
+                    throw new IllegalArgumentException("Invoice number must be a positive integer.");
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid invoice number.");
+                scanner.nextLine(); // Consume newline character
+            }
+        }
+        return invoiceNumber;
+    }
+
+    private static String getValidCustomerName(Scanner scanner) {
+        String customerName;
+        while (true) {
+            System.out.print("Enter customer full name: ");
+            customerName = scanner.nextLine().trim();
+            if (!customerName.isEmpty()) {
+                break;
+            }
+            System.out.println("Customer name cannot be empty.");
+        }
+        return customerName;
+    }
+
+    private static String getValidPhoneNumber(Scanner scanner) {
+        String phoneNumber;
+        while (true) {
+            System.out.print("Enter phone number: ");
+            phoneNumber = scanner.nextLine().trim();
+            if (isValidPhoneNumber(phoneNumber)) {
+                break;
+            }
+            System.out.println("Invalid phone number format. Please enter a valid 8-digit number starting with 9 or 7.");
+        }
+        return phoneNumber;
+    }
+
+
+
+    private static String getValidInvoiceDate(Scanner scanner) {
+        String invoiceDate;
+        while (true) {
+            System.out.print("Enter invoice date (dd-mm-yyyy): ");
+            invoiceDate = scanner.nextLine().trim();
+            if (isValidDateFormat(invoiceDate)) {
+                break;
+            }
+            System.out.println("Invalid date format. Please enter the date in dd-mm-yyyy format.");
+        }
+        return invoiceDate;
+    }
+    private static boolean isValidDateFormat(String date) {
+        return date.matches("\\d{2}-\\d{2}-\\d{4}");
+    }
+    //return all invoices
  public List<Invoice> getAllInvoices() {
      return invoices;
  }
