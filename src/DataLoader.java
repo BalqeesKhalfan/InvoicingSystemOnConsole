@@ -53,7 +53,7 @@ public class DataLoader {
 
         //same comments for this one as loadItemsFromConsole function
         List<Invoice> invoices = new ArrayList<>();
-        System.out.println("Enter item details in the following format: invoiceNumber,customerName, phoneNumber, invoiceDate");
+        System.out.println("Enter invoice details in the following format: invoiceNumber,customerName, phoneNumber, invoiceDate");
         System.out.println("Type 'done' when you have finished adding invoices.");
         boolean continueEnteringInvoice = true;
         while (continueEnteringInvoice) {

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Invoice {
+public class Invoice implements  InvoiceInterface{
     private static int nextInvoiceNumber = 1;
     Integer invoiceNumber;
     String customerName;
@@ -14,7 +14,11 @@ public class Invoice {
      double totalAmount;
     double paidAmount;
      double balance;
-    public Invoice(Integer invoiceNumber,String customerName, String phoneNumber, String invoiceDate) {
+
+    public Invoice() {
+    }
+
+    public Invoice(Integer invoiceNumber, String customerName, String phoneNumber, String invoiceDate) {
         this.invoiceNumber = nextInvoiceNumber++;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
@@ -29,70 +33,72 @@ public class Invoice {
 
     //Getter and Setter
 
-
+    @Override
     public Integer getInvoiceNumber() {
         return invoiceNumber;
     }
-
+   @Override
     public void setInvoiceNumber(Integer invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
-
+   @Override
     public String getCustomerName() {
         return customerName;
     }
-
+   @Override
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
+   @Override
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
+  @Override
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
+    @Override
     public String getInvoiceDate() {
         return invoiceDate;
     }
-
+   @Override
     public void setInvoiceDate(String invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
-
+  @Override
     public List<Item> getItems() {
         return items;
     }
-
+   @Override
     public void setItems(List<Item> items) {
         this.items = items;
     }
-
+  @Override
     public double getTotalAmount() {
         return totalAmount;
     }
-
+   @Override
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
+    @Override
 
     public double getPaidAmount() {
         return paidAmount;
     }
-
+   @Override
     public void setPaidAmount(double paidAmount) {
         this.paidAmount = paidAmount;
     }
-
+   @Override
     public double getBalance() {
         return balance;
     }
-
+   @Override
     public void setBalance(double balance) {
         this.balance = balance;
     }
+    @Override
     public int getQuantityOfAnItem(Item item) {
         int index = items.indexOf(item);
         if (index != -1) {
@@ -100,7 +106,7 @@ public class Invoice {
         }
         return 0;
     }
-
+    @Override
     public double getItemAmount(Item item) {
         int index = items.indexOf(item);
         if (index != -1) {
@@ -109,6 +115,7 @@ public class Invoice {
         return 0;
     }
     // method to add new Item
+    @Override
     public void addItem(Item item, Integer quantity) {
         items.add(item);
         quantities.add(quantity);
@@ -116,6 +123,7 @@ public class Invoice {
     }
 
     // method to calculate total mount
+    @Override
     public double calculateTotalAmount() {
         double total = 0.0;
         for (Item item : items) {
@@ -124,6 +132,7 @@ public class Invoice {
         return total;
     }
     //method to update paid amount
+    @Override
     public void updatePaidAmount(double amount) {
         if (amount >= 0) {
             this.paidAmount += amount;
@@ -134,6 +143,7 @@ public class Invoice {
     }
 
     // method to mark Invoice paid
+    @Override
     public void markInvoicePaid() {
         if (this.balance == 0.0) {
             System.out.println("Invoice already paid.");
@@ -214,8 +224,8 @@ public class Invoice {
     }
 
     //method or report statistic menu
-
-    public static void statisticsMenu(Shop shop) {
+    @Override
+    public  void statisticsMenu(Shop shop) {
         System.out.println("Report: Statistics Menu:");
 
         int totalItems = 0;
@@ -238,8 +248,8 @@ public class Invoice {
 
     // Method to generate a report of all invoices
 
-
-    public static void reportAllInvoices(Shop shop) {
+   @Override
+    public  void reportAllInvoices(Shop shop) {
         System.out.println("Report: All Invoices Menu:");
         List<Invoice> allInvoices = shop.getAllInvoices();
         if (allInvoices.isEmpty()) {
@@ -254,8 +264,8 @@ public class Invoice {
 
 
     // search Invoice Menu
-
-    public static void searchInvoicesMenu(Shop shop, Scanner scanner) {
+    @Override
+    public  void searchInvoicesMenu(Shop shop, Scanner scanner) {
         System.out.println("Search Invoices Menu:");
         System.out.print("Enter Invoice Number: ");
         int searchInvoiceNumber = scanner.nextInt();

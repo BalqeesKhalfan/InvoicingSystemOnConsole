@@ -35,16 +35,17 @@ public class Menu {
         Menu.showShopSettingsMenu();
         System.out.print("Enter your choice: ");
         int settingChoice = scanner.nextInt();
+        ShopInterface shopInterface = new Shop();
         scanner.nextLine(); // Consume the newline character after reading the integer
         switch (settingChoice) {
             case 1:
-                System.out.println(shop.loadData(scanner));
+                System.out.println(shopInterface.loadData(scanner));
                 break;
             case 2:
-                Shop.setShopName(scanner, shop);
+                shopInterface.setShopName(scanner, shop);
                 break;
             case 3:
-                Shop.setInvoiceHeader(scanner, shop);
+                shopInterface.setInvoiceHeader(scanner, shop);
                 break;
             case 4:
                 Menu.showMainMenu();
@@ -60,21 +61,23 @@ public class Menu {
         Menu.showManageShopItemsMenu();
         System.out.print("Enter your choice: ");
         int itemChoice = scanner.nextInt();
+        ItemInterface item = new Item();
+        ShopInterface shopfac = new Shop();
         switch (itemChoice) {
             case 1:
-                Item.addItem(scanner,shop);
+                item.addItem(scanner,shop);
 
                 break;
             case 2:
 
-                Item.deleteItem(scanner, shop);
+                item.deleteItem(scanner, shop);
                 break;
             case 3:
 
-                Item.changeItemPrice(scanner, shop);
+                item.changeItemPrice(scanner, shop);
                 break;
             case 4:
-                shop.reportAllItems();
+                shopfac.reportAllItems();
                 break;
             case 5:
                 Menu.showMainMenu();

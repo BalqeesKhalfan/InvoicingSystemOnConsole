@@ -1,27 +1,28 @@
 import java.util.*;
 
-public class Shop {
+public class Shop implements ShopInterface {
     private String shopName;
-    private  Map<String, String> invoiceHeader;
-    private  List<Item> items;
-    private  List<Invoice> invoices;
+    private  Map<String, String> invoiceHeader=new HashMap<>();
+    private  List<Item> items = new ArrayList<>();
+    private  List<Invoice> invoices = new ArrayList<>();
 
+    public Shop() {
+    }
 
     public Shop(String shopName) {
         this.shopName = shopName;
         this.invoiceHeader = new HashMap<>();
-        this.items = new ArrayList<>();
+        this.items = new ArrayList<>(); // Initialize the items list
         this.invoices = new ArrayList<>();
-    }
 
+    }
+    @Override
     public String getShopName() {
         return shopName;
     }
     // Setters for shop name and invoice header
-    public static void setShopName(String shopName) {
 
-    }
-
+ @Override
     public  void setInvoiceHeader(String tel, String fax, String email, String website) {
         invoiceHeader.put("Telephone", tel);
         invoiceHeader.put("Fax", fax);
@@ -31,20 +32,24 @@ public class Shop {
   //
   // Add Methods Of  managing items
     //add Item
-  public void addItem(Item item) {
+    @Override
+    public void addItem(Item item) {
       items.add(item);
   }
+  @Override
     public List<Item> getItems() {
         return items;
     }
     //delete an Item
     // Remove an item from the 'items' list based on the given itemId
+    @Override
     public void deleteItem(int itemId) {
         // Use the removeIf method to remove items based on a condition
         items.removeIf(item -> item.getItemId() == itemId);
         //  This line of code will  remove items that satisfy the condition specified in the lambda expression
     }
     // update Item Price
+    @Override
     public void changeItemPrice(int itemId, double newPrice) {
         for (Item item : items) {
             if (item.getItemId() == itemId) {
@@ -55,9 +60,14 @@ public class Shop {
     }
 
     //methods of Managing invoices
+    @Override
     public void addInvoice(Invoice invoice) {
         invoices.add(invoice);
     }
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+    @Override
 
     public List<Invoice> getInvoices() {
         return invoices;
@@ -67,6 +77,7 @@ public class Shop {
     //load Data
 
     // Method to load default data or allow user to enter data
+    @Override
     public  List<String> loadData(Scanner scanner) {
         List<String> loadedData = new ArrayList<>(); // Create a new list to store loaded data
         System.out.println("Do you want to load default data? (yes/no): ");
@@ -92,7 +103,8 @@ public class Shop {
         return loadedData;
     }
     // set shop Name
-    public static void setShopName(Scanner scanner, Shop shop) {
+    @Override
+    public  void setShopName(Scanner scanner, Shop shop) {
         boolean isValidName = false; // boolean to check  if the entered name is valid
 
         while (!isValidName) {
@@ -110,7 +122,8 @@ public class Shop {
         }
     }
     //Set invoice header
-    static void setInvoiceHeader(Scanner scanner, Shop shop) {
+    @Override
+    public void setInvoiceHeader(Scanner scanner, Shop shop) {
         System.out.println("Enter Invoice Header Information:");
         String tel = "";
         String email = "";
@@ -171,7 +184,7 @@ public class Shop {
         defaultData.add(""); // Add an empty line
 
         // Add some default invoices
-        defaultData.add("Default Invoices:");
+         defaultData.add("Default Invoices:");
         for (Invoice invoice : getDefaultInvoices()) {
             defaultData.add(invoice.toString());
         }
@@ -199,13 +212,49 @@ public class Shop {
         return defaultInvoices;
     }
 
-    // method of reporting all Items
-    public void reportAllItems() {
-        System.out.println("All Shop Items:");
-        for (Item item : items) {
-            System.out.println(item);
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    // method of reporting all Items
+//    @Override
+//    public List<Item> reportAllItems() {
+//        System.out.println("All Shop Items:");
+//       /** for (Item item : items) {
+//            System.out.println(item);
+//        }**/
+//        List<Item> allItems = new ArrayList<>();
+//
+//        // Add default items
+//      //  allItems.addAll(getDefaultItems());
+//
+//        // Add items created by you
+//        allItems.addAll(items);
+//
+//        return allItems;
+//    }
     // create new invoice
 //    public static void createNewInvoiceMenu(Shop shop, Scanner scanner) {
 //        System.out.println("Create New Invoice Menu:");
@@ -253,8 +302,8 @@ public class Shop {
 //        // Inform the user that the invoice was created successfully
 //        System.out.println("Invoice created successfully.");
 //    }
-
-    public static void createNewInvoiceMenu(Shop shop, Scanner scanner) {
+     @Override
+    public  void createNewInvoiceMenu(Shop shop, Scanner scanner) {
         System.out.println("Create New Invoice Menu:");
 
         // Collect invoice information
@@ -299,6 +348,12 @@ public class Shop {
         // Inform the user that the invoice was created successfully
         System.out.println("Invoice created successfully.");
     }
+
+  /**  @Override
+    public void createNewInvoiceMenu(ShopInterface shop, Scanner scanner) {
+
+    }**/
+
     // Validation methods
     private static int getValidInvoiceNumber(Scanner scanner) {
         int invoiceNumber;
@@ -375,7 +430,13 @@ public class Shop {
         return null; // Return null if invoice is not found
     }
 
-
+    @Override
+    public void reportAllItems() {
+        System.out.println("All Shop Items:");
+        for (Item item : items) {
+            System.out.println(item);
+        }
+    }
 
 
 }

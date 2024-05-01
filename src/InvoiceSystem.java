@@ -34,6 +34,7 @@ public class InvoiceSystem {
     }
 
     static void processMainMenu(int choice, Scanner scanner, Shop shop) {
+        InvoiceInterface invoice=new Invoice();
         switch (choice) {
             case 1:
                 Menu.processShopSettingsMenu(scanner, shop);
@@ -42,16 +43,16 @@ public class InvoiceSystem {
                 Menu.processManageShopItemsMenu(scanner, shop);
                 break;
             case 3:
-                Shop.createNewInvoiceMenu(shop, scanner);
+                shop.createNewInvoiceMenu(shop, scanner);
                 break;
             case 4:
-                Invoice.statisticsMenu(shop);
+                invoice.statisticsMenu(shop);
                 break;
             case 5:
-                Invoice.reportAllInvoices(shop);
+                invoice.reportAllInvoices(shop);
                 break;
             case 6:
-                Invoice.searchInvoicesMenu(shop, scanner);
+                invoice.searchInvoicesMenu(shop, scanner);
                 break;
             case 7:
                 printMenuSelections();
